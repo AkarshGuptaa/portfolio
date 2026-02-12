@@ -1,0 +1,608 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: url("https://preview.redd.it/7n7c8fhdt7u91.png?width=1080&crop=smart&auto=webp&s=6b213dc64ed95cda3c01f148c1ccde311c54c715") no-repeat center center/cover;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+
+.terminal-line {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    font-size: 14px;
+    z-index: 1000;
+    position: fixed;
+}
+
+.left, .right {
+    display: flex;
+    gap: 15px;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.menu {
+    cursor: pointer;
+}
+
+.menu:hover {
+    color: #4fc3f7;
+}
+
+.dock {
+    position: fixed;
+    left: 10px;
+    top: 200px;
+    width: 60px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.dock-icon {
+    width: 36px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.dock-icon:hover {
+    transform: scale(1.2);
+}
+
+.window-header {
+    cursor: move;
+    user-select: none;
+}
+
+
+.window {
+    position: fixed;
+    top: 120px;
+    left: 200px;
+    width: 600px;
+    height: 350px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 10;
+}
+
+#terminalWindow {
+    top: 120px;
+    left: 180px;
+}
+
+#notepadWindow {
+    top: 160px;
+    left: 350px;
+}
+
+#fileExplorerWindow {
+    top: 100px;
+    left: 500px;
+}
+
+#pdfWindow {
+    width: 900px;
+    height: 600px;
+    top: 80px;
+    left: 200px;
+}
+
+
+.hidden {
+    display: none;
+}
+
+.window-header {
+    background: #2b2b2b;
+    color: white;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.window-header button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.window-body {
+    flex: 1;
+    padding: 10px;
+    color: #00ff88;
+    font-family: monospace;
+    #terminalContent {
+    outline: none;
+    height: 100%;
+    white-space: pre-wrap;
+}
+}
+
+.notepad-body {
+    flex: 1;
+    padding: 10px;
+    background: #ffffff;
+    color: black;
+    font-family: Consolas, monospace;
+    outline: none;
+    overflow-y: auto;
+}
+
+.prompt {
+    color: #00ff88;
+}
+
+.command {
+    outline: none;
+}
+
+.notepad-container {
+    display: flex;
+    height: 100%;
+    font-family: Consolas, monospace;
+}
+
+.line-numbers {
+    background: #f0f0f0;
+    padding: 10px 5px;
+    text-align: right;
+    user-select: none;
+    color: #888;
+}
+
+.notepad-body {
+    flex: 1;
+    padding: 10px;
+    outline: none;
+    white-space: pre-wrap;
+    overflow-y: auto;
+}
+.explorer-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);
+    gap: 25px;
+    padding: 25px;
+    background: #1f1f1f;
+    height: 100%;
+}
+
+
+.file-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+    color: #ddd;
+    font-size: 14px;
+}
+
+.file-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-3px);
+}
+
+
+.file-item:hover {
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+}
+
+.pdf-viewer {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.file-icon {
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.file-name {
+    text-align: center;
+    word-break: break-word;
+}
+.file-item:active {
+    background: rgba(0, 150, 255, 0.25);
+}
+
+.lock {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+.lock-time {
+    color: white;
+    font-size: 80px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+.power {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.power:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+.window-body {
+    padding: 0;
+}
+
+#terminalContent {
+    margin: 0;
+    padding: 10px;
+}
+
+.browser-bar {
+    padding: 6px;
+    background: #2b2b2b;
+}
+
+.browser-bar input {
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.browser-frame {
+    width: 100%;
+    height: calc(100% - 40px);
+    border: none;
+}
+.tray-icon {
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 5px;
+}
+
+.tray-icon:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* Popup style */
+.popup {
+    position: fixed;
+    top: 35px;
+    right: 20px;
+    background: rgba(30,30,30,0.95);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    z-index: 2000;
+}
+
+#batteryPopup {
+    right: 60px; /* shift slightly left */
+}
+
+.popup input[type="range"] {
+    width: 120px;
+}
+#wifiPopup {
+    right: 100px; /* adjust position near icon */
+    width: 180px;
+}
+
+.wifi-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.wifi-network {
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.wifi-network:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.connected {
+    color: #4fc3f7;
+}
+.resize-handle {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: se-resize;
+    background: transparent;
+}
+
+.resize-handle::after {
+    content: "";
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid rgba(255,255,255,0.5);
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+}
+
+.browser-body {
+    padding: 20px;
+    background: #1f1f1f;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#browserInput {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.shortcuts {
+    display: flex;
+    gap: 20px;
+}
+
+.shortcut {
+    width: 60px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.shortcut:hover {
+    transform: scale(1.1);
+}
+
+.dropdown {
+    position: fixed;
+    top: 30px; /* just below top bar */
+    left: 100px; /* adjust based on your layout */
+    background: rgba(30,30,30,0.95);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    padding: 8px 0;
+    width: 180px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    z-index: 3000;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 15px;
+    cursor: pointer;
+    color: white;
+}
+
+.dropdown-item img {
+    width: 18px;
+}
+
+.dropdown-item:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.login-screen {
+    position: fixed;
+    inset: 0;
+    background: url("kali-wallpaper.jpg") center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+    z-index: 10000;
+}
+
+.user-card {
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px solid black;
+    color: white;
+    padding: 15px 50px;
+    border-radius: 12px;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.user-card:hover {
+    transform: scale(1.08);
+    background: rgba(0, 0, 0, 0.95);
+}
+
+
+.profile-pic {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 22px;
+    gap: 15px;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.welcome.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+.spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.hidden {
+    display: none;
+}
+
+.user-card {
+    background: rgba(163, 133, 133, 0.1);
+    color: white;
+    padding: 15px 50px;
+    border-radius: 12px;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.user-card:hover {
+    background: rgba(0, 0, 0, 0.95);
+    transform: scale(1.05);
+}
+
+.login-screen {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #111 0%, #000 70%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    z-index: 10000;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.login-clock {
+    color: white;
+    font-size: 60px;
+    font-weight: 300;
+}
+.users {
+    display: flex;
+    gap: 40px;
+}
+
+.terminal-output {
+    margin: 5px 0;
+    color: #aaa;
+    font-family: monospace;
+}
+
+.highlight {
+    color: #4fc3f7;
+}
+
+@media (max-width: 768px) {
+
+    /* Hide Places + Volume */
+    #placesButton,
+    #volumeButton {
+        display: none;
+    }
+
+    /* Adjust dock */
+    .dock {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 10px;
+        top: auto;
+        flex-direction: row;
+        width: auto;
+        padding: 8px 15px;
+        gap: 20px;
+    }
+
+    /* Make windows full-screen style */
+    .window {
+        top: 40px !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: calc(100vh - 90px) !important;
+        border-radius: 0;
+    }
+
+    /* Remove resize handle */
+    .resize-handle {
+        display: none;
+    }
+
+}
